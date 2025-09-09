@@ -78,7 +78,7 @@ Demonstrate:
 🚀 Higher detection accuracy
 
 🔐 Privacy preserved
-
+```
 📊 Workflow Diagram
 Traffic Capture (Wireshark/Dataset)
           ↓
@@ -93,7 +93,8 @@ Traffic Capture (Wireshark/Dataset)
  Threat Detection Engine
           ↓
  Output: Benign / Malicious / Alert
-
+ ```
+```
 📂 Repository Structure
 ├── data/                 # Raw datasets
 ├── features/             # Extracted features
@@ -102,7 +103,8 @@ Traffic Capture (Wireshark/Dataset)
 ├── dashboard.py          # Results dashboard (Dash)
 ├── results/              # Saved models, metrics
 ├── requirements.txt      # Dependencies
-└── README.md             # Project documentation
+└── README.md  
+```
 
 🛠️ Tech Stack
 
