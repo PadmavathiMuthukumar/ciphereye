@@ -10,9 +10,9 @@ To future-proof against post-quantum threats, a Quantum-Safe Security layer (QKD
 
 **1️⃣ Data Collection**
 
-Dataset: CIC-IDS 2017 (Encrypted traffic dataset).
+Dataset: CSE-CIC-IDS2018 (Encrypted traffic dataset).
 
-📖 Reference: [CIC-IDS 2017 Dataset](https://www.kaggle.com/datasets/dhoogla/csecicids2018)
+📖 Reference: [CSE-CIC-IDS2018](https://www.kaggle.com/datasets/dhoogla/csecicids2018)
 
 
 Tools: PyShark, custom packet captures.
