@@ -1,131 +1,154 @@
 🔒 Encrypted Traffic Threat Detection with AI & Quantum-Safe Security
-📌 Project Overview
+**📌 Project Overview**
 
-This project focuses on detecting malicious patterns in encrypted network traffic without decrypting the payload. By leveraging metadata features and advanced ML models (Transformers, GNNs), the system ensures privacy preservation while enabling real-time threat detection.
+This project focuses on detecting malicious patterns in encrypted network traffic without decrypting the payload. By leveraging metadata features and advanced ML models, the system ensures privacy preservation while enabling real-time threat detection.
 
-A Quantum-Safe Security layer (QKD) is integrated to future-proof the system against post-quantum threats.
+To future-proof against post-quantum threats, a Quantum-Safe Security layer (QKD) is integrated, ensuring secure communication of model outputs.
 
-🚀 Project Workflow
-1️⃣ Data Collection
+**🚀 Project Workflow**
 
-Capture encrypted traffic traces using:
+**1️⃣ Data Collection**
 
-Wireshark
+Dataset: CIC-IDS 2017 (Encrypted traffic dataset).
 
-CIC-IDS datasets
+📖 Reference: [CIC-IDS 2017 Dataset](https://www.unb.ca/cic/datasets/ids-2017.html)
 
-Custom packet captures
 
-Collect only metadata (packet size, timing, TLS handshake info).
+Tools: PyShark, custom packet captures.
+
+Only metadata is collected (packet size, inter-arrival time, TLS handshake info).
+
 ✅ Payload remains private (no decryption needed).
 
-2️⃣ Feature Extraction
+**2️⃣ Feature Extraction**
 
-Extract key features:
+* Packet size distribution
 
-Packet size distribution
+* Inter-arrival time
 
-Inter-arrival time
+* Flow duration
 
-Flow duration
+* Number of packets per flow
 
-Number of packets per flow
+* TLS handshake patterns
 
-TLS handshake patterns
+**3️⃣ Preprocessing**
 
-Convert traffic into structured sequences for ML input.
+Normalization & scaling
 
-3️⃣ Preprocessing
+Handling class imbalance (malicious < normal)
 
-Normalize and scale features.
+Formatting for ML model input
 
-Handle class imbalance (malicious < normal).
-
-Format data for ML models.
-
-4️⃣ ML / AI Model Training
-
-Train on metadata with:
-
-Transformer / Graph Neural Network (GNN)
-
-Baselines: Random Forest, XGBoost
-
-Objective: classify flows as Normal / Malicious / Suspicious.
-
-5️⃣ Quantum-Safe Security Integration
-
-Apply Quantum Key Distribution (QKD) for secure key exchange.
-
-Ensures post-quantum security resilience.
-
-6️⃣ Threat Detection Engine
-
-Perform real-time anomaly detection.
-
-Flag suspicious flows without decrypting payloads.
-
-Send alerts to SOC (Security Operation Center).
-
-7️⃣ Evaluation & Results
-
-Metrics: Accuracy, Precision, Recall, F1-score.
-
-Benchmark against existing approaches.
-
-Demonstrate:
-
-🚀 Higher detection accuracy
-
-🔐 Privacy preserved
+**4️⃣ ML / AI Model Training & Comparison**
+We evaluated five models on the dataset:
 ```
-📊 Workflow Diagram
-Traffic Capture (Wireshark/Dataset)
+| Model               | Accuracy | Execution Time | Performance Notes                |
+|----------------------|----------|----------------|----------------------------------|
+| Logistic Regression  | Moderate | Fast           | Baseline model                   |
+| Random Forest        | High     | Moderate       | Robust but heavier                |
+| **XGBoost**          | **High** | **Fastest**    | ✅ Best overall (lightweight)    |
+| LightGBM             | High     | Fast           | Competitive but slightly lower    |
+| CatBoost             | High     | Moderate       | Strong on categorical features    |
+
+
+```
+
+➡️ XGBoost achieved the best results, offering higher accuracy, faster execution, and lightweight performance.
+
+**5️⃣ Quantum-Safe Security Integration**
+
+Quantum Key Distribution (QKD) is applied to transfer predicted outputs securely to the central SOC server.
+
+Prevents hackers from tampering or intercepting predictions.
+
+**6️⃣ Threat Detection Engine**
+
+Real-time anomaly detection
+
+Flags suspicious flows
+
+Sends alerts securely to SOC
+
+**7️⃣ Evaluation & Results**
+
+Metrics: Accuracy, Precision, Recall, F1-score
+
+XGBoost scored the highest accuracy with reduced execution time
+
+Privacy fully preserved (no payload decryption)
+
+**📊 Workflow Diagram**
+
+```
+Traffic Capture (PyShark / CIC-IDS 2017)
           ↓
    Feature Extraction (Metadata only)
           ↓
         Preprocessing
           ↓
- ML Model (Transformer / GNN / XGBoost)
+  ML Model Comparison
+ (LogReg / RF / XGBoost / LightGBM / CatBoost)
           ↓
- Quantum-Safe Security Layer (QKD)
+   Best Model → XGBoost
+          ↓
+Quantum-Safe Security Layer (QKD)
           ↓
  Threat Detection Engine
           ↓
  Output: Benign / Malicious / Alert
- ```
+
+```
+
 ```
 📂 Repository Structure
-├── data/                 # Raw datasets
+├── data/                 # Raw datasets (CIC-IDS 2017)
 ├── features/             # Extracted features
 ├── processed/            # Preprocessed data
-├── train_model.py        # ML model training
-├── dashboard.py          # Results dashboard (Dash)
+├── train_model.py        # ML model training & comparison
+├── dashboard.py          # Results dashboard (Dash/Plotly)
 ├── results/              # Saved models, metrics
 ├── requirements.txt      # Dependencies
-└── README.md  
+└── README.md             # Project documentation
+
 ```
 
-🛠️ Tech Stack
+**🛠️ Tech Stack**
 
-Python (Pandas, Scikit-learn, XGBoost, PyTorch)
+Python: Pandas, Scikit-learn, XGBoost, LightGBM, CatBoost, PyTorch
 
-Dash / Plotly (Dashboard & visualization)
+Dash / Plotly: Dashboard & visualization
 
-Wireshark (Traffic capture)
+Wireshark: Traffic capture
 
-Git LFS (Large dataset handling)
+Git LFS: Large dataset handling
 
 Quantum-Safe Cryptography (QKD concepts)
 
-📢 Future Work
+**📢 Future Work**
 
-Deploy system on real-time network streams.
+Deploy the system on real-time network streams
 
-Integrate with SOC dashboards (Splunk/ELK).
+Integrate with SOC dashboards (Splunk / ELK)
 
-Explore hybrid classical + quantum ML for encrypted traffic.
+Explore hybrid classical + quantum ML for encrypted traffic
 
-👩‍💻 Author
+**✨ Highlight:**
 
-Padmavathi Muthukumar
+XGBoost selected as the final model due to its higher accuracy, lightweight design, and faster execution.
+
+QKD-secured communication ensures that model outputs are safe from interception and tampering.
+
+**📤 Output:**
+
+Below is the sample output screenshot from our trained XGBoost model:
+
+![Output Screenshot](C:\Users\padma\ciphereye\results\output.png)
+
+- The dashboard shows classification results.
+- Alerts are generated for malicious flows.
+- Predictions are securely transferred using QKD.
+
+Below is the Confusion Matrix screenshot from our trained XGBoost model:
+
+![Output Screenshot](C:\Users\padma\ciphereye\results\xgboost_confusion_matrix.png)
