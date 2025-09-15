@@ -1,4 +1,4 @@
-### 🔒 Encrypted Traffic Threat Detection with AI & Quantum-Safe Security
+# 🔒 Encrypted Traffic Threat Detection with AI & Quantum-Safe Security
 
 ## 📌 Project Overview
 
@@ -12,7 +12,7 @@ To future-proof against post-quantum threats, a Quantum-Safe Security layer (QKD
 
 Dataset: CIC-IDS 2017 (Encrypted traffic dataset).
 
-📖 Reference: [CIC-IDS 2017 Dataset](https://www.unb.ca/cic/datasets/ids-2017.html)
+📖 Reference: [CIC-IDS 2017 Dataset](https://www.kaggle.com/datasets/dhoogla/csecicids2018)
 
 
 Tools: PyShark, custom packet captures.
@@ -42,6 +42,7 @@ Handling class imbalance (malicious < normal)
 Formatting for ML model input
 
 **📊 ML / AI Model Training & Comparison**
+
 We evaluated five models on the dataset:
 
 | Model               | Accuracy   | Execution Time | Performance Notes                  |
