@@ -40,19 +40,17 @@ Handling class imbalance (malicious < normal)
 
 Formatting for ML model input
 
-**4️⃣ ML / AI Model Training & Comparison**
+### 📊 ML / AI Model Training & Comparison  
 We evaluated five models on the dataset:
-```
-| Model               | Accuracy | Execution Time | Performance Notes                |
-|----------------------|----------|----------------|----------------------------------|
-| Logistic Regression  | Moderate | Fast           | Baseline model                   |
-| Random Forest        | High     | Moderate       | Robust but heavier                |
-| **XGBoost**          | **High** | **Fastest**    | ✅ Best overall (lightweight)    |
-| LightGBM             | High     | Fast           | Competitive but slightly lower    |
-| CatBoost             | High     | Moderate       | Strong on categorical features    |
 
+| Model               | Accuracy   | Execution Time | Performance Notes                  |
+|---------------------|------------|----------------|-----------------------------------|
+| Logistic Regression | Moderate   | Fast           | Baseline model                    |
+| Random Forest       | High       | Moderate       | Robust but heavier                 |
+| **XGBoost**         | **High**   | **Fastest**    | ✅ Best overall (lightweight)      |
+| LightGBM            | High       | Fast           | Competitive but slightly lower     |
+| CatBoost            | High       | Moderate       | Strong on categorical features     |
 
-```
 
 ➡️ XGBoost achieved the best results, offering higher accuracy, faster execution, and lightweight performance.
 
