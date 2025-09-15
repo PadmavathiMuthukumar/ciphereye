@@ -22,9 +22,9 @@ test_df = pd.read_csv(TEST_FILE)
 
 # Features and labels
 X_train = train_df.drop(columns=["label"])
-y_train = train_df["label"].map({"Benign": 0, "Attack": 1})  # Encode labels as 0/1
+y_train = train_df["label"]   # Already 0/1
 X_test = test_df.drop(columns=["label"])
-y_test = test_df["label"].map({"Benign": 0, "Attack": 1})
+y_test = test_df["label"]     # Already 0/1
 
 # Scale features
 scaler = StandardScaler()
@@ -67,7 +67,7 @@ print(f"   F1-score : {f1:.4f}")
 # Confusion Matrix
 cm = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(6, 5))
-sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Benign", "Attack"], yticklabels=["Benign", "Attack"])
+sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=["Benign (0)", "Attack (1)"], yticklabels=["Benign (0)", "Attack (1)"])
 plt.xlabel("Predicted")
 plt.ylabel("Actual")
 plt.title("XGBoost Confusion Matrix Heatmap (Loaded Model)")

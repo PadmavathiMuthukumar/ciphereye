@@ -1,0 +1,168 @@
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ciphereye IDS Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        .benign { color: green; font-weight: bold; }
+        .attack { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Ciphereye Real-Time IDS Dashboard</h1>
+    <p>Live network traffic analysis from your IDS.</p>
+
+    <h2>📊 Last Captured Packets</h2>
+    <table id="packetTable">
+        <thead>
+            <tr>
+                <th>Length</th>
+                <th>SYN</th>
+                <th>ACK</th>
+                <th>FIN</th>
+                <th>PSH</th>
+                <th>Prediction</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>📈 Live Traffic Summary</h2>
+    <canvas id="trafficChart" width="400" height="150"></canvas>
+
+    <script>
+        const tableBody = document.querySelector("#packetTable tbody");
+        const ctx = document.getElementById('trafficChart').getContext('2d');
+        let chart;
+
+        async function fetchData() {
+            const res = await fetch('/live_data');
+            const data = await res.json();
+
+            // Update table
+            tableBody.innerHTML = "";
+            data.packets.forEach(pkt => {
+                const row = `<tr>
+                    <td>${pkt.length}</td>
+                    <td>${pkt.SYN}</td>
+                    <td>${pkt.ACK}</td>
+                    <td>${pkt.FIN}</td>
+                    <td>${pkt.PSH}</td>
+                    <td class="${pkt.Prediction.includes('Benign') ? 'benign' : 'attack'}">${pkt.Prediction}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+
+            // Update chart
+            const chartData = {
+                labels: ['Benign ✅', 'Attack 🚨'],
+                datasets: [{
+                    label: 'Packet Count',
+                    data: [data.benign_total, data.malicious_total],
+                    backgroundColor: ['green', 'red']
+                }]
+            };
+
+            if(chart) {
+                chart.data = chartData;
+                chart.update();
+            } else {
+                chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: chartData,
+                    options: { responsive: true, plugins: { legend: { display: false } } }
+                });
+            }
+        }
+
+        // Fetch every 2 sec
+        setInterval(fetchData, 2000);
+        fetchData();  // initial call
+    </script>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ciphereye IDS + QKD Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f9; }
+    h1 { color: #2c3e50; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background-color: #2c3e50; color: white; }
+    .summary { margin-top: 20px; padding: 15px; background: #fff; border-radius: 8px; }
+    .benign { color: green; }
+    .attack { color: red; }
+    .key-box { background: #e8f5e9; padding: 10px; border: 1px solid #2e7d32; margin-top: 10px; }
+  </style>
+  <script>
+    async function fetchData() {
+      const res = await fetch("/data");
+      const data = await res.json();
+
+      // Update summary
+      document.getElementById("benign").innerText = data.benign_total;
+      document.getElementById("malicious").innerText = data.malicious_total;
+
+      // Update packet table
+      let tableBody = document.getElementById("packet-table-body");
+      tableBody.innerHTML = "";
+      data.packets.forEach(pkt => {
+        let row = `<tr>
+          <td>${pkt.length}</td>
+          <td>${pkt.SYN}</td>
+          <td>${pkt.ACK}</td>
+          <td>${pkt.FIN}</td>
+          <td>${pkt.PSH}</td>
+          <td>${pkt.Prediction}</td>
+        </tr>`;
+        tableBody.innerHTML += row;
+      });
+
+      // Update QKD key
+      document.getElementById("qkd-key").innerText = data.qkd_key.join(" ");
+    }
+
+    setInterval(fetchData, 2000); // refresh every 2s
+    window.onload = fetchData;
+  </script>
+</head>
+<body>
+  <h1>🚀 Ciphereye IDS + QKD Dashboard</h1>
+  <p>This dashboard shows live IDS traffic analysis and simulated QKD key distribution.</p>
+
+  <div class="summary">
+    <h3>📊 Total Packets Summary</h3>
+    <p class="benign">✅ Benign Packets: <span id="benign">0</span></p>
+    <p class="attack">🚨 Malicious Packets: <span id="malicious">0</span></p>
+  </div>
+
+  <h3>📊 Live Packet Table</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Length</th>
+        <th>SYN</th>
+        <th>ACK</th>
+        <th>FIN</th>
+        <th>PSH</th>
+        <th>Prediction</th>
+      </tr>
+    </thead>
+    <tbody id="packet-table-body"></tbody>
+  </table>
+
+  <div class="summary">
+    <h3>🔑 Simulated QKD Key</h3>
+    <div class="key-box" id="qkd-key">Loading...</div>
+  </div>
+</body>
+</html>

@@ -7,12 +7,13 @@ import random
 INPUT_FILE = "./merged_features/merged_features.csv"
 OUTPUT_FILE = "./balanced_dataset/balanced_dataset.csv"
 
+
 # Make sure the output folder exists
 os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 
 # Load merged dataset
 df = pd.read_csv(INPUT_FILE)
-
+print(df.head())
 # Convert labels to numeric (Benign=0, Attack=1)
 df['label'] = df['label'].apply(lambda x: 0 if x == 'Benign' else 1)
 
